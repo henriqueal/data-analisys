@@ -1,0 +1,79 @@
+---
+title: "Work 2"
+author: "Henrique Araujo Lima"
+date: "01 de maio de 2018"
+---
+
+# Descrição:
+Reexecute e explique os comandos R na 7a. ed. do livro texto na pagina 211.
+
+# Desenvolvimento:
+## Geração de números aleatórios:
+Os próximos comandos mostram como gerar $1000$ num eros aleatórios com os inteiros $[0,1,..,9]$.
+```{r aleatorios}
+y = c(0:9) #cria um vetor com os valores (0,1,2,...,9)
+x = sample(y, 1000, replace=T) #cria uma amostra de tamanho 1000 com os valores
+	#contidos no vetor y
+x # exibe a amostra
+```
+
+## Calculando probabilidade binomial:
+Os comandos a seguir mostram como calcular a probabilidade binomial quando $X$ esta em uma distribuição binomial com $n=10$ e $\pi=0,6$. 
+```{r binomial}
+dbinom(3,10,.6) #calcula a probabilidade P(X=3)
+pbinom(3,10,.6) #calcula a probabilidade P(X<=3)
+# Calcula a probabilidade de P(X=k) para k = 0, 1, 2, ..., 10
+k = c(0:10)
+dbinom(k,10,.6)
+```
+
+## Calculando probabilidade de Poisson:
+Os comandos a seguir mostram como calcular a probabilidade de Poisson quando $Y$ esta em uma distribuição binomial com $\lambda=10$ e $\pi=0,6$. 
+```{r poisson}
+dbinom(3,10,.6) #calcula a probabilidade P(Y=3)
+pbinom(3,10,.6) #calcula a probabilidade P(Y<=3)
+# Calcula a probabilidade de P(Y=3)$ para k = 0, 1, 2, ..., 10
+k = c(0:10)
+dbinom(k,10,.6) #calcula a probabilidade P(X=3)
+```
+
+## Calculando probabilidade normal:
+Os comandos a seguir mostram como calcular a probabilidade quando $X$ esta em uma distribuição normal com $\mu=23$ e $\sigma=5$. 
+```{r normal}
+pnorm(18,23,5) #calcula a probabilidade P(X<=18)
+1-pnorm(18,23,5) #calcula a probabilidade P(X>18)
+qnorm(.85,23,5) #calcula o 85o percentil
+```
+
+## Gerando uma amostra da distribuição média $\bar{y}$:
+Os comandos em R a seguir simulam uma amostragem da distribuição da média $\bar{y}$. Serão gerados $10000$ valores para a média $\bar{y}$. Cada valor(dos $10000$) é gerado como sendo a média de uma amostra aleatória de tamanho $16$ de uma população com distribuição normal cuja média eh $\mu=16$ e $\sigma=7$. Posteriormente eh possível verificar os valores gerados, o histograma, a média e o desvio padrão dos $10000$ valores.
+```{r sampling distribution}
+r=10000
+y=rep(0,16)
+ybar16=rep(0,r)
+for(i in 1:r){
+	y = rnorm(16,43,7) #gera uma amostra normal de tamanho 16 da população
+	ybar16[i] = mean(y) #calcula a média da amostra
+}
+head(ybar16) #exibe os primeiros elementos da amostra
+hist(ybar16, border="deepskyblue2") #exibe o histograma da amostra
+mean(ybar16) #exibe a média da amostra
+sd(ybar16) #exibe o desvio padrão da amostra
+```
+
+
+## Gerando a plotagem do gráfico 4.28 do livro.
+```{r ploting}
+y = c(133, 137, 148, 149, 152, 167, 174, 179, 189, 192, 201, 209, 210, 211, 218, 238, 245,
+	248, 253, 257)
+y=sort(y)
+n=length(y)
+i=1:n
+u=(i-0.375)/(n+0.25)
+x=qnorm(u)
+plot(x,y,xlab="Normal quantiles", ylab="Cholesterol readings", lab=c(7,8,7), 
+	ylim=c(100,280), main="Normal Reference Ditribution Plot\n Cholesterol readings",
+	cex =.95, col="deepskyblue2")
+abline(lm(y~x), col="deepskyblue2")
+cor(x,y) #calcula a correlação entre as variáveis
+```
