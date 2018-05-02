@@ -141,7 +141,7 @@ qnorm(.85,23,5) #calcula o 85o percentil
 ```
 
 ## Gerando uma amostra da distribuição média $\bar{y}$:
-Os comandos em R a seguir simulam uma amostragem da distribuição da média $\bar{y}$. Serão gerados $10000$ valores para a média $\bar{y}$. Cada valor(dos $10000$) é gerado como sendo a média de uma amostra aleatória de tamanho $16$ de uma população com distribuição normal cuja média eh $\mu=16$ e $\sigma=7$. Posteriormente eh possível verificar os valores gerados, o histograma, a média e o desvio padrão dos $10000$ valores.
+Os comandos em R a seguir simulam uma amostragem da distribuição da média $\bar{y}$. Serão gerados $10000$ valores para a média $\bar{y}$. Cada valor(dos $10000$) é gerado como sendo a média de uma amostra aleatória de tamanho $16$ de uma população com distribuição normal cuja média eh $\mu=43$ e $\sigma=7$. Posteriormente eh possível verificar os valores gerados, o histograma, a média e o desvio padrão dos $10000$ valores.
 
 ```r
 r=10000
