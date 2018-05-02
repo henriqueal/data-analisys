@@ -1,0 +1,121 @@
+---
+title: "Work 3"
+author: "Henrique Araujo Lima"
+date: "02 de maio de 2018"
+---
+
+# Descrição:
+Reproduza o Ex. 4.23 (Exemplo das moedas). Para a geração dos dados, gere idades aleatórias entre 0 e 42 para as 500 moedas.
+
+## Descrição detalhada:
+Existem 500 moedas com idades entre 0 e 42 anos com média $\mu=13,468$ e desvio padrão $\sigma=11,164$. O objetivo é simular a geração das 500 moedas aleatórias. E posteriormente retirar $25000$ amostras de tamanhos $5, 10 e 25$. Logo em seguida deve-se calcular as médias, medianas e desvio padrão para cada tamanho de amostras e comparar os resultados.
+
+# Desenvolvimento:
+## Geração aleatória das moedas
+```{r coins-generate}
+library(ggplot2)
+ages = c(0:42) #cria um vetor com os valores (0,1,2,...,42)
+coins = sample(ages, 500, replace=T)
+coins
+qplot(coins, geom="histogram", binwidth=0.5, bins=42, fill=I("deepskyblue2"))
+```
+
+## Geração das amostras de tamanho $n= 5,10 e 20$ e calculo dos valores da média, mediana e desvio padrão.
+### Tamanho $n = 5$
+
+```{r n5}
+r=25000
+n=5
+y=rep(0,n)
+ybarMean5=rep(0,r)
+ybarMedian5=rep(0,r)
+ybarSd5=rep(0,r)
+for(i in 1:r){
+	y = sample(coins, n, replace=T)
+	ybarMean5[i] = floor(mean(y))
+	ybarMedian5[i] = floor(median(y))
+	ybarSd5[i] = floor(sd(y))
+
+}
+```
+
+
+### Tamanho $n = 10$ 
+```{r n10}
+r=25000
+n=10
+y=rep(0,n)
+ybarMean10=rep(0,r)
+ybarMedian10=rep(0,r)
+ybarSd10=rep(0,r)
+for(i in 1:r){
+	y = sample(coins, n, replace=T)
+	ybarMean10[i] = floor(mean(y))
+	ybarMedian10[i] = floor(median(y))
+	ybarSd10[i] = floor(sd(y))
+
+}
+```
+
+### Tamanho $n = 25$
+```{r n25}
+r=25000
+n=25
+y=rep(0,n)
+ybarMean25=rep(0,r)
+ybarMedian25=rep(0,r)
+ybarSd25=rep(0,r)
+for(i in 1:r){
+	y = sample(coins, n, replace=T)
+	ybarMean25[i] = floor(mean(y))
+	ybarMedian25[i] = floor(median(y))
+	ybarSd25[i] = floor(sd(y))
+
+}
+```
+
+## Plotagem dos gráficos
+### Médias
+```{r mean}
+qplot(ybarMean5, geom="histogram", binwidth=0.5,  fill=I("deepskyblue2"))
+qplot(ybarMean10, geom="histogram", binwidth=0.5,  fill=I("deepskyblue2"))
+qplot(ybarMean25, geom="histogram", binwidth=0.5,  fill=I("deepskyblue2"))
+```
+
+### Medianas
+```{r median}
+qplot(ybarMedian5, geom="histogram", binwidth=0.5,  fill=I("deepskyblue2"))
+qplot(ybarMedian10, geom="histogram", binwidth=0.5,  fill=I("deepskyblue2"))
+qplot(ybarMedian25, geom="histogram", binwidth=0.5,  fill=I("deepskyblue2"))
+```
+
+### Desvio Padrão
+```{r sd}
+qplot(ybarSd5, geom="histogram", binwidth=0.5,  fill=I("deepskyblue2"))
+qplot(ybarSd10, geom="histogram", binwidth=0.5,  fill=I("deepskyblue2"))
+qplot(ybarSd25, geom="histogram", binwidth=0.5,  fill=I("deepskyblue2"))
+```
+
+### Sumário
+
+```{r results}
+
+n <- c("standard", "5", "10", "25")
+
+medias <- c(
+	mean(coins),
+	mean(ybarMean5),
+	mean(ybarMean10),
+	mean(ybarMean25))
+
+desvio_padrao <- c(
+	sd(coins),
+	sd(ybarSd5),
+	sd(ybarSd10),
+	sd(ybarSd25))
+
+data.frame(n, medias,desvio_padrao)
+```
+
+# Conclusão
+Podemos observar que quanto menor o tamanho da amostra, mais os dados (média, mediana e desvio padrão) ficam esparsos. Além disso, podemos visualizar na tabela de sumário que o fato de aumentarmos o tamanho da amostra não implica em mudanças bruscas no valor da média. No entanto, se aumentarmos o tamanho da amostra o desvio padrão diminui consideravelmente.
